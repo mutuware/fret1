@@ -1,0 +1,47 @@
+﻿<div id="fretboard">
+    <div id="empty"></div>
+    @for (int i = 0; i < 25; i++)
+    {
+        <div id="fret">@i</div>
+    }
+
+    @foreach (var str in Strings)
+    {
+        <div id="string">@str.Key</div>
+
+        @foreach (var note in str.Value)
+        {
+            <div id="note" class="@scaleHighlight">@note</div>
+        }
+    }
+</div>
+
+@code {
+    public Dictionary<string, List<string>> Strings = new Dictionary<string, List<string>>(); // string name and list of notes
+
+    private string scaleHighlight => "scaleHighlight";// : null;
+
+    protected override void OnInitialized()
+    {
+        // TODO: move to musictheory class and make data driven.
+        var tunings = new List<int> { // standard tuning
+            40, //  E2
+            45, //  A2
+            50, //  D3
+            55, //  G3
+            59, //  B3
+            64  //  E4
+        };
+
+        int stringNumber = 1;
+        foreach (var tuning in tunings.OrderByDescending(x => x))
+        {
+            var frets = Enumerable.Range(tuning, 25)
+                .Select(x => x.ToString())
+                .ToList();
+
+            Strings.Add(stringNumber.ToString(), frets);
+            stringNumber++;
+        }
+    }
+}
