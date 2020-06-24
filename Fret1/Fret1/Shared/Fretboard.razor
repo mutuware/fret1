@@ -1,47 +1,53 @@
-﻿<div id="fretboard">
+﻿@using MusicTheory;
+@using MusicTheory.Instruments;
+
+<div id="fretboard">
     <div id="empty"></div>
     @for (int i = 0; i < 25; i++)
     {
         <div id="fret">@i</div>
     }
 
-    @foreach (var str in Strings)
+    @foreach (var str in Guitar.Strings)
     {
-        <div id="string">@str.Key</div>
+        <div id="string">@str.StringNumber</div>
 
-        @foreach (var note in str.Value)
+        @foreach (var note in str.Notes)
         {
-            <div id="note" class="@scaleHighlight">@note</div>
+            <div id="note" class="@HighlightScale(note)">@note</div>
         }
     }
 </div>
+<EditForm Model="@FormModel" OnValidSubmit="@HandleValidSubmit">
+    <InputSelect @bind-Value="FormModel.ScaleKey" >
+        @foreach (var item in Enum.GetValues(typeof(Keys)))
+        {
+            <option value="@item">@item</option>
+        }
+    </InputSelect>
+    <button type="submit">Submit</button>
+</EditForm>
 
 @code {
-    public Dictionary<string, List<string>> Strings = new Dictionary<string, List<string>>(); // string name and list of notes
+    public Guitar Guitar;
+    public Scale Scale;
 
-    private string scaleHighlight => "scaleHighlight";// : null;
+    public FormModel FormModel = new FormModel();
+
+    public string HighlightScale(Note note) => Scale.HasNote(note) ? "scaleHighlight" : null;
+
 
     protected override void OnInitialized()
     {
-        // TODO: move to musictheory class and make data driven.
-        var tunings = new List<int> { // standard tuning
-            40, //  E2
-            45, //  A2
-            50, //  D3
-            55, //  G3
-            59, //  B3
-            64  //  E4
-        };
+        Guitar = new MusicTheory.Instruments.Guitar();
 
-        int stringNumber = 1;
-        foreach (var tuning in tunings.OrderByDescending(x => x))
-        {
-            var frets = Enumerable.Range(tuning, 25)
-                .Select(x => x.ToString())
-                .ToList();
-
-            Strings.Add(stringNumber.ToString(), frets);
-            stringNumber++;
-        }
+        Scale = new Scale(FormModel.ScaleKey, "Major");
     }
+
+    protected void HandleValidSubmit()
+    {
+        Scale = new Scale(FormModel.ScaleKey, "Major");
+        StateHasChanged();
+    }
+
 }
