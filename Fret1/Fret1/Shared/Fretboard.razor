@@ -18,36 +18,34 @@
         }
     }
 </div>
-<EditForm Model="@FormModel" OnValidSubmit="@HandleValidSubmit">
-    <InputSelect @bind-Value="FormModel.ScaleKey" >
-        @foreach (var item in Enum.GetValues(typeof(Keys)))
-        {
-            <option value="@item">@item</option>
-        }
-    </InputSelect>
-    <button type="submit">Submit</button>
-</EditForm>
+<select @bind="@ScaleKey">
+    @foreach (var item in AllKeys)
+    {
+        <option value="@item">@item</option>
+    }
+</select>
+
 
 @code {
     public Guitar Guitar;
     public Scale Scale;
 
-    public FormModel FormModel = new FormModel();
+    private Keys _scaleKey = Keys.C;
+    public Keys ScaleKey
+    {
+        get { return _scaleKey; }
+        set { _scaleKey = value; Scale = new Scale(_scaleKey, "Major"); }
+    }
+
+    public IEnumerable<Keys> AllKeys;
+
 
     public string HighlightScale(Note note) => Scale.HasNote(note) ? "scaleHighlight" : null;
-
 
     protected override void OnInitialized()
     {
         Guitar = new MusicTheory.Instruments.Guitar();
-
-        Scale = new Scale(FormModel.ScaleKey, "Major");
+        Scale = new Scale(_scaleKey, "Major");
+        AllKeys =  Enum.GetValues(typeof(Keys)).Cast<Keys>();
     }
-
-    protected void HandleValidSubmit()
-    {
-        Scale = new Scale(FormModel.ScaleKey, "Major");
-        StateHasChanged();
-    }
-
 }
