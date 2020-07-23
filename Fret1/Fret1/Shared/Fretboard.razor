@@ -14,38 +14,123 @@
 
         @foreach (var note in str.Notes)
         {
-            <div id="note" class="@HighlightScale(note)">@note</div>
+            <div id="note" class="@HighlightScale(note) @HighlightChord(note)">@note</div>
         }
     }
 </div>
-<select @bind="@ScaleKey">
-    @foreach (var item in AllKeys)
-    {
-        <option value="@item">@item</option>
-    }
-</select>
+
+<div class="row">
+    <label for="scale" class="label">ScaleKey</label>
+    <select id="scale" @bind="@ScaleKey">
+        @foreach (var scaleKey in ScaleKeys)
+        {
+            <option value="@scaleKey">@scaleKey</option>
+        }
+    </select>
+
+    <label for="scale" class="label">ScaleType</label>
+    <select id="scale" @bind="@ScaleType">
+        @foreach (var scaleType in ScaleTypes)
+        {
+            <option value="@scaleType">@scaleType</option>
+        }
+    </select>
+
+    <!-- notes -->
+    <ul>
+        @foreach (var note in Scale.Notes)
+        {
+            <li style="display: inline">@note.Key</li>
+        }
+    </ul>
+
+</div>
+
+<div class="row">
+    <label for="chord" class="label">ChordKey</label>
+    <select id="chord" @bind="@ChordKey">
+        @foreach (var scaleKey in ScaleKeys)
+        {
+            <option value="@scaleKey">@scaleKey</option>
+        }
+    </select>
+
+    <label for="chord" class="label">ChordType</label>
+    <select id="chord" @bind="@ChordType">
+        @foreach (var chordType in ChordTypes)
+        {
+            <option value="@chordType">@chordType</option>
+        }
+    </select>
+
+    <!-- notes -->
+    <ul>
+        @foreach (var note in Chord.Notes)
+        {
+            <li style="display: inline">@note.Key</li>
+        }
+    </ul>
+</div>
 
 
 @code {
     public Guitar Guitar;
+
     public Scale Scale;
 
     private Keys _scaleKey = Keys.C;
     public Keys ScaleKey
     {
         get { return _scaleKey; }
-        set { _scaleKey = value; Scale = new Scale(_scaleKey, "Major"); }
+        set { _scaleKey = value; Scale = new Scale(_scaleKey, _scaleType); }
     }
 
-    public IEnumerable<Keys> AllKeys;
+    private string _scaleType = "Major";
+    public string ScaleType
+    {
+        get { return _scaleType; }
+        set { _scaleType = value; Scale = new Scale(_scaleKey, _scaleType); }
+    }
+
+    public IEnumerable<Keys> ScaleKeys;
+    public IEnumerable<string> ScaleTypes;
+
+    public Chord Chord;
+    private Keys _chordKey = Keys.C;
+    public Keys ChordKey
+    {
+        get { return _chordKey; }
+        set { _chordKey = value; Chord = new Chord(_chordKey, _chordType); }
+    }
+
+    private string _chordType = "Major";
+    public string ChordType
+    {
+        get { return _chordType; }
+        set { _chordType = value; Chord = new Chord(_chordKey, _chordType); }
+    }
+
+    public IEnumerable<Keys> ChordKeys;
+    public IEnumerable<string> ChordTypes;
 
 
     public string HighlightScale(Note note) => Scale.HasNote(note) ? "scaleHighlight" : null;
+    public string HighlightChord(Note note) => Chord.HasNote(note) ? "chordHighlight" : null;
 
     protected override void OnInitialized()
     {
         Guitar = new MusicTheory.Instruments.Guitar();
+
+        var allKeys = Enum.GetValues(typeof(Keys)).Cast<Keys>();
+        ScaleKeys = allKeys;
+        ScaleTypes = new string[] { "Major", "Minor" };
+
+        ChordKeys = allKeys;
+        ChordTypes = new string[] { "Major", "Minor"};
+
         Scale = new Scale(_scaleKey, "Major");
-        AllKeys =  Enum.GetValues(typeof(Keys)).Cast<Keys>();
+
+        Chord = new Chord(_chordKey, "Major");
+
     }
 }
