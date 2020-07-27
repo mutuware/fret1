@@ -21,7 +21,7 @@
 
 
 <div id="options">
-    <label for="scaleKey" class="label">ScaleKey</label>
+    <label for="scaleKey" class="label">Scale</label>
     <select id="scaleKey" @bind="@ScaleKey">
         @foreach (var scaleKey in ScaleKeys)
         {
@@ -29,7 +29,6 @@
         }
     </select>
 
-    <label for="scaleType" class="label">ScaleType</label>
     <select id="scaleType" @bind="@ScaleType">
         @foreach (var scaleType in ScaleTypes)
         {
@@ -38,16 +37,16 @@
     </select>
 
     <!-- notes -->
-    <ul>
+    <ul class="itemNotes">
         @foreach (var note in Scale.Notes)
         {
-            <li style="display: inline">@note.Key</li>
+            <li>@note.Key</li>
         }
     </ul>
 
 
 
-    <label for="chordKey" class="label">ChordKey</label>
+    <label for="chordKey" class="label">Chord</label>
     <select id="chordKey" @bind="@ChordKey">
         @foreach (var scaleKey in ScaleKeys)
         {
@@ -55,7 +54,6 @@
         }
     </select>
 
-    <label for="chordType" class="label">ChordType</label>
     <select id="chordType" @bind="@ChordType">
         @foreach (var chordType in ChordTypes)
         {
@@ -64,10 +62,10 @@
     </select>
 
     <!-- notes -->
-    <ul>
+    <ul class="itemNotes">
         @foreach (var note in Chord.Notes)
         {
-            <li style="display: inline">@note.Key</li>
+            <li>@note.Key</li>
         }
     </ul>
 </div>

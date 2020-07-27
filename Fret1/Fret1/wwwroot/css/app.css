@@ -193,6 +193,7 @@ app {
     background: #f7f7f7;
     color: black;
     border: 1px solid black;
+    text-align: center;
 }
 
 #fret, #string {
@@ -209,7 +210,7 @@ app {
 
 #options {
     display: grid;
-    grid-template: 1fr 1fr / 1fr 1fr 1fr 1fr 1fr;
+    grid-template: 1fr 1fr / min-content auto auto auto;
     grid-gap: 2px;
     margin: 10px;
 }
@@ -220,4 +221,9 @@ app {
 
 .label[for=chordKey] {
     color: green;
+}
+
+.itemNotes > li {
+    color: gray;
+    display: inline-block;
 }
