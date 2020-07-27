@@ -24,17 +24,16 @@ jobs:
           dotnet-version: 3.1.101
  
       - name: Install dependencies
-        run: ls 
-        # dotnet restore fret1
+        run: dotnet restore Fret1
       
       - name: Build
-        run: dotnet build fret1 --configuration Release --no-restore
+        run: dotnet build Fret1 --configuration Release --no-restore
       
       - name: Test
-        run: dotnet test fret1 --no-restore --verbosity normal
+        run: dotnet test Fret1 --no-restore --verbosity normal
 
       - name: Publish
-        run: dotnet publish fret1
+        run: dotnet publish Fret1
 
       - name: Deploy
         id: builddeploy
