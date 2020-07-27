@@ -33,7 +33,7 @@ jobs:
         run: dotnet test Fret1 --no-restore --verbosity normal
 
       - name: Publish
-        run: dotnet publish Fret1
+        run: dotnet publish Fret1 -c release -o published
 
       - name: Deploy
         id: builddeploy
