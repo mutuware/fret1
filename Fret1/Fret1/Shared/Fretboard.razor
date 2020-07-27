@@ -19,17 +19,18 @@
     }
 </div>
 
-<div class="row">
-    <label for="scale" class="label">ScaleKey</label>
-    <select id="scale" @bind="@ScaleKey">
+
+<div id="options">
+    <label for="scaleKey" class="label">ScaleKey</label>
+    <select id="scaleKey" @bind="@ScaleKey">
         @foreach (var scaleKey in ScaleKeys)
         {
             <option value="@scaleKey">@scaleKey</option>
         }
     </select>
 
-    <label for="scale" class="label">ScaleType</label>
-    <select id="scale" @bind="@ScaleType">
+    <label for="scaleType" class="label">ScaleType</label>
+    <select id="scaleType" @bind="@ScaleType">
         @foreach (var scaleType in ScaleTypes)
         {
             <option value="@scaleType">@scaleType</option>
@@ -44,19 +45,18 @@
         }
     </ul>
 
-</div>
 
-<div class="row">
-    <label for="chord" class="label">ChordKey</label>
-    <select id="chord" @bind="@ChordKey">
+
+    <label for="chordKey" class="label">ChordKey</label>
+    <select id="chordKey" @bind="@ChordKey">
         @foreach (var scaleKey in ScaleKeys)
         {
             <option value="@scaleKey">@scaleKey</option>
         }
     </select>
 
-    <label for="chord" class="label">ChordType</label>
-    <select id="chord" @bind="@ChordType">
+    <label for="chordType" class="label">ChordType</label>
+    <select id="chordType" @bind="@ChordType">
         @foreach (var chordType in ChordTypes)
         {
             <option value="@chordType">@chordType</option>
@@ -126,7 +126,7 @@
         ScaleTypes = new string[] { "Major", "Minor" };
 
         ChordKeys = allKeys;
-        ChordTypes = new string[] { "Major", "Minor"};
+        ChordTypes = new string[] { "Major", "Minor" };
 
         Scale = new Scale(_scaleKey, "Major");
 
