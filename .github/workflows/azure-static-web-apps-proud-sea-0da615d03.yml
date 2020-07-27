@@ -24,7 +24,8 @@ jobs:
           dotnet-version: 3.1.101
  
       - name: Install dependencies
-        run: dotnet restore fret1
+        run: ls 
+        # dotnet restore fret1
       
       - name: Build
         run: dotnet build fret1 --configuration Release --no-restore
