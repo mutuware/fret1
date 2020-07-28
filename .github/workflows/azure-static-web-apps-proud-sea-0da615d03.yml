@@ -21,7 +21,7 @@ jobs:
       - name: Setup .NET Core
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: 3.1.101
+          dotnet-version: 3.1.102
  
       - name: Install dependencies
         run: dotnet restore Fret1
@@ -33,7 +33,7 @@ jobs:
         run: dotnet test Fret1 --no-restore --verbosity normal
 
       - name: Publish
-        run: dotnet publish Fret1
+        run: dotnet publish Fret1 -c release -o published
 
       - name: Deploy
         id: builddeploy
