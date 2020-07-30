@@ -1,5 +1,6 @@
 ﻿@using MusicTheory;
 @using MusicTheory.Instruments;
+@using Fret1.Extensions;
 
 <div id="fretboard">
     <div id="empty"></div>
@@ -21,11 +22,12 @@
 
 
 <div id="options">
+
     <label for="scaleKey" class="label">Scale</label>
     <select id="scaleKey" @bind="@ScaleKey">
         @foreach (var scaleKey in ScaleKeys)
         {
-            <option value="@scaleKey">@scaleKey</option>
+            <option value="@scaleKey">@scaleKey.GetDisplayName()</option>
         }
     </select>
 
@@ -45,12 +47,11 @@
     </ul>
 
 
-
     <label for="chordKey" class="label">Chord</label>
     <select id="chordKey" @bind="@ChordKey">
-        @foreach (var scaleKey in ScaleKeys)
+        @foreach (var chordKey in ChordKeys)
         {
-            <option value="@scaleKey">@scaleKey</option>
+            <option value="@chordKey">@chordKey.GetDisplayName()</option>
         }
     </select>
 
@@ -76,7 +77,7 @@
 
     public Scale Scale;
 
-    private Keys _scaleKey = Keys.C;
+    private Keys _scaleKey = Keys.None;
     public Keys ScaleKey
     {
         get { return _scaleKey; }
@@ -94,7 +95,7 @@
     public IEnumerable<string> ScaleTypes;
 
     public Chord Chord;
-    private Keys _chordKey = Keys.C;
+    private Keys _chordKey;
     public Keys ChordKey
     {
         get { return _chordKey; }
@@ -119,6 +120,7 @@
     {
         Guitar = new MusicTheory.Instruments.Guitar();
 
+
         var allKeys = Enum.GetValues(typeof(Keys)).Cast<Keys>();
         ScaleKeys = allKeys;
         ScaleTypes = new string[] { "Major", "Minor" };
@@ -127,8 +129,6 @@
         ChordTypes = new string[] { "Major", "Minor" };
 
         Scale = new Scale(_scaleKey, "Major");
-
         Chord = new Chord(_chordKey, "Major");
-
     }
 }
