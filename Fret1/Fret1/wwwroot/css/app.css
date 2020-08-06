@@ -227,3 +227,14 @@ app {
     color: gray;
     display: inline-block;
 }
+
+
+footer{
+    font-size: x-small;
+    font-weight: 100;
+    text-align: center;
+}
+
+header {
+    text-align: center;
+}

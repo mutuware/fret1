@@ -14,20 +14,35 @@
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Fret1</title>
+    <title>Fret1 - Guitar Chord Finder</title>
     <base href="/" />
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/app.css" rel="stylesheet" />
 </head>
 
-<body>
-    <app>Loading...</app>
+<body class="container">
+    <header>
+        <h1>Guitar Scale/Chord Finder</h1>
+    </header>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="" class="reload">Reload</a>
-        <a class="dismiss">🗙</a>
-    </div>
+    <main>
+        <article class="row">A guitar chord and scale finder that display both scales and chords overlapped on the fretboard.</article>
+
+        <app class="row">Looking for my guitar...</app>
+
+        <article class="row">
+            <p>Choose the scale and chord key. Then choose the scale or chord type.</p>
+            <p>These will then be higlighted on the fretboard</p>
+        </article>
+
+        <div id="blazor-error-ui">
+            An unhandled error has occurred.
+            <a href="" class="reload">Reload</a>
+            <a class="dismiss">🗙</a>
+        </div>
+    </main>
+
+    <footer>©2020 Fret1</footer>
     <script src="_framework/blazor.webassembly.js"></script>
 </body>
 
