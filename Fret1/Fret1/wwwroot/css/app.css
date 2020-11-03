@@ -201,7 +201,7 @@ app {
 }
 
 #note.scaleHighlight {
-    background-image: linear-gradient(225deg, red, red 10px, transparent 10px, transparent);
+    background-image: linear-gradient(225deg, blue, blue 10px, transparent 10px, transparent);
 }
 
 #note.chordHighlight {
@@ -216,7 +216,7 @@ app {
 }
 
 .label[for=scaleKey] {
-    color: red;
+    color: blue;
 }
 
 .label[for=chordKey] {
@@ -224,7 +224,7 @@ app {
 }
 
 .itemNotes > li {
-    color: gray;
+    color: white;
     display: inline-block;
 }
 
